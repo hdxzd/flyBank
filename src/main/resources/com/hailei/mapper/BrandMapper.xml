@@ -2,38 +2,34 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hailei.mapper.BrandMapper">
+<mapper namespace="com.hailei.mapper.AdminMapper">
 
-    <resultMap id="brandResultMap" type="brand">
-        <result property="brandName" column="brand_name" />
-        <result property="companyName" column="company_name" />
+    <resultMap id="AdminResultMap" type="user">
+        <result property="bank_id" column="bank_id" />
+        <result property="bank_name" column="bank_name" />
     </resultMap>
 
 
 
     <delete id="deleteByIds">
-        delete from tb_brand where id in
+        delete from Bank where bank_id in
         <foreach collection="ids" item="id" separator="," open="(" close=")">
-            #{id}
+            #{bank_id}
         </foreach>
 
 
     </delete>
     <!-- where brand_name = #{brand.brandName}-->
-    <select id="selectByPageAndCondition" resultMap="brandResultMap">
+    <select id="selectByPageAndCondition" resultMap="AdminResultMap">
         select *
-        from tb_brand
+        from Bank
         <where>
-            <if test="brand.brandName != null and brand.brandName != '' ">
-                and  brand_name like #{brand.brandName}
+            <if test="user.bank_name != null and user.bank_name != '' ">
+                and  bank_name like #{user.bank_name}
             </if>
 
-            <if test="brand.companyName != null and brand.companyName != '' ">
-                and  company_name like #{brand.companyName}
-            </if>
-
-            <if test="brand.status != null">
-                and  status = #{brand.status}
+            <if test="user.phone != null and user.phone != '' ">
+                and  phone like #{user.phone}
             </if>
 
         </where>
@@ -46,17 +42,14 @@
         select count(*)
         from tb_brand
         <where>
-            <if test="brandName != null and brandName != '' ">
-                and  brand_name like #{brandName}
+            <if test="bank_name != null and bank_name != '' ">
+                and  bank_name like #{bank_name}
             </if>
 
-            <if test="companyName != null and companyName != '' ">
-                and  company_name like #{companyName}
+            <if test="phone != null and phone != '' ">
+                and  phone like #{phone}
             </if>
 
-            <if test="status != null">
-                and  status = #{status}
-            </if>
 
         </where>
 

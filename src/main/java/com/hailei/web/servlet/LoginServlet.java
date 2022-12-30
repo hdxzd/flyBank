@@ -16,7 +16,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //1. 获取用户名和密码
-        String username = request.getParameter("username");
+        String username = request.getParameter("bank_name");
         String password = request.getParameter("password");
 
         //获取复选框数据

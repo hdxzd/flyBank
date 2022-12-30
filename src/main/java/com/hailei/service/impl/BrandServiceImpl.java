@@ -1,8 +1,8 @@
 package com.hailei.service.impl;
 
-import com.hailei.mapper.BrandMapper;
-import com.hailei.pojo.Brand;
+import com.hailei.mapper.AdminMapper;
 import com.hailei.pojo.PageBean;
+import com.hailei.pojo.User;
 import com.hailei.service.BrandService;
 import com.hailei.util.SqlSessionFactoryUtils;
 import org.apache.ibatis.session.SqlSession;
@@ -16,30 +16,30 @@ public class BrandServiceImpl implements BrandService {
 
 
     @Override
-    public List<Brand> selectAll() {
+    public List<User> selectAll() {
         //2. 获取SqlSession对象
         SqlSession sqlSession = factory.openSession();
         //3. 获取BrandMapper
-        BrandMapper mapper = sqlSession.getMapper(BrandMapper.class);
+        AdminMapper mapper = sqlSession.getMapper(AdminMapper.class);
 
         //4. 调用方法
-        List<Brand> brands = mapper.selectAll();
+        List<User> users = mapper.selectAll();
 
         //5. 释放资源
         sqlSession.close();
 
-        return brands;
+        return users;
     }
 
     @Override
-    public void add(Brand brand) {
+    public void add(User user) {
         //2. 获取SqlSession对象
         SqlSession sqlSession = factory.openSession();
         //3. 获取BrandMapper
-        BrandMapper mapper = sqlSession.getMapper(BrandMapper.class);
+        AdminMapper mapper = sqlSession.getMapper(AdminMapper.class);
 
         //4. 调用方法
-        mapper.add(brand);
+        mapper.add(user);
         sqlSession.commit();//提交事务
 
         //5. 释放资源
@@ -51,7 +51,7 @@ public class BrandServiceImpl implements BrandService {
         //2. 获取SqlSession对象
         SqlSession sqlSession = factory.openSession();
         //3. 获取BrandMapper
-        BrandMapper mapper = sqlSession.getMapper(BrandMapper.class);
+        AdminMapper mapper = sqlSession.getMapper(AdminMapper.class);
 
         //4. 调用方法
         mapper.deleteById(id);
@@ -63,14 +63,14 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    public void updateById(Brand brand) {
+    public void updateById(User user) {
         //2. 获取SqlSession对象
         SqlSession sqlSession = factory.openSession();
         //3. 获取BrandMapper
-        BrandMapper mapper = sqlSession.getMapper(BrandMapper.class);
+        AdminMapper mapper = sqlSession.getMapper(AdminMapper.class);
 
         //4. 调用方法
-        mapper.updateById(brand);
+        mapper.updateById(user);
 
         sqlSession.commit();//提交事务
 
@@ -83,7 +83,7 @@ public class BrandServiceImpl implements BrandService {
         //2. 获取SqlSession对象
         SqlSession sqlSession = factory.openSession();
         //3. 获取BrandMapper
-        BrandMapper mapper = sqlSession.getMapper(BrandMapper.class);
+        AdminMapper mapper = sqlSession.getMapper(AdminMapper.class);
 
         //4. 调用方法
         mapper.deleteByIds(ids);
@@ -95,11 +95,11 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    public PageBean<Brand> selectByPage(int currentPage, int pageSize) {
+    public PageBean<User> selectByPage(int currentPage, int pageSize) {
         //2. 获取SqlSession对象
         SqlSession sqlSession = factory.openSession();
         //3. 获取BrandMapper
-        BrandMapper mapper = sqlSession.getMapper(BrandMapper.class);
+        AdminMapper mapper = sqlSession.getMapper(AdminMapper.class);
 
 
         //4. 计算开始索引
@@ -108,13 +108,13 @@ public class BrandServiceImpl implements BrandService {
         int size = pageSize;
 
         //5. 查询当前页数据
-        List<Brand> rows = mapper.selectByPage(begin, size);
+        List<User> rows = mapper.selectByPage(begin, size);
 
         //6. 查询总记录数
         int totalCount = mapper.selectTotalCount();
 
         //7. 封装PageBean对象
-        PageBean<Brand> pageBean = new PageBean<>();
+        PageBean<User> pageBean = new PageBean<>();
         pageBean.setRows(rows);
         pageBean.setTotalCount(totalCount);
 
@@ -126,11 +126,11 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    public PageBean<Brand> selectByPageAndCondition(int currentPage, int pageSize, Brand brand) {
+    public PageBean<User> selectByPageAndCondition(int currentPage, int pageSize, User user) {
         //2. 获取SqlSession对象
         SqlSession sqlSession = factory.openSession();
         //3. 获取BrandMapper
-        BrandMapper mapper = sqlSession.getMapper(BrandMapper.class);
+        AdminMapper mapper = sqlSession.getMapper(AdminMapper.class);
 
 
         //4. 计算开始索引
@@ -139,25 +139,25 @@ public class BrandServiceImpl implements BrandService {
         int size = pageSize;
 
         // 处理brand条件，模糊表达式
-        String brandName = brand.getBrandName();
-        if (brandName != null && brandName.length() > 0) {
-            brand.setBrandName("%" + brandName + "%");
+        String bank_name = user.getBank_name();
+        if (bank_name != null && bank_name.length() > 0) {
+            user.setBank_name("%" + bank_name + "%");
         }
 
-        String companyName = brand.getCompanyName();
-        if (companyName != null && companyName.length() > 0) {
-            brand.setCompanyName("%" + companyName + "%");
+        String phone = user.getPhone();
+        if (phone != null && phone.length() > 0) {
+            user.setPhone("%" + phone + "%");
         }
 
 
         //5. 查询当前页数据
-        List<Brand> rows = mapper.selectByPageAndCondition(begin, size, brand);
+        List<User> rows = mapper.selectByPageAndCondition(begin, size, user);
 
         //6. 查询总记录数
-        int totalCount = mapper.selectTotalCountByCondition(brand);
+        int totalCount = mapper.selectTotalCountByCondition(user);
 
         //7. 封装PageBean对象
-        PageBean<Brand> pageBean = new PageBean<>();
+        PageBean<User> pageBean = new PageBean<>();
         pageBean.setRows(rows);
         pageBean.setTotalCount(totalCount);
 

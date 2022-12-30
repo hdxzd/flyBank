@@ -4,6 +4,7 @@ package com.hailei.web.servlet;
 import com.alibaba.fastjson.JSON;
 import com.hailei.pojo.Brand;
 import com.hailei.pojo.PageBean;
+import com.hailei.pojo.User;
 import com.hailei.service.BrandService;
 import com.hailei.service.impl.BrandServiceImpl;
 
@@ -22,10 +23,10 @@ public class BrandServlet extends BaseServlet{
 
     public void selectAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //1. 调用service查询
-        List<Brand> brands = brandService.selectAll();
+        List<User> users = brandService.selectAll();
 
         //2. 转为JSON
-        String jsonString = JSON.toJSONString(brands);
+        String jsonString = JSON.toJSONString(users );
         //3. 写数据
         response.setContentType("text/json;charset=utf-8");
         response.getWriter().write(jsonString);
@@ -46,10 +47,10 @@ public class BrandServlet extends BaseServlet{
         String params = br.readLine();//json字符串
 
         //转为Brand对象
-        Brand brand = JSON.parseObject(params, Brand.class);
+        User user = JSON.parseObject(params, User.class);
 
         //2. 调用service添加
-        brandService.add(brand);
+        brandService.add(user);
 
         //3. 响应成功的标识
         response.getWriter().write("success");
@@ -93,11 +94,11 @@ public class BrandServlet extends BaseServlet{
         String params = br.readLine();//json字符串
 
         //转为 int
-        Brand brand = JSON.parseObject(params, Brand.class);
+        User user = JSON.parseObject(params, User.class);
 
 
         //2. 调用service添加
-        brandService.updateById(brand);
+        brandService.updateById(user);
 
         //3. 响应成功的标识
         response.getWriter().write("success");
@@ -143,7 +144,7 @@ public class BrandServlet extends BaseServlet{
         int pageSize = Integer.parseInt(_pageSize);
 
         //2. 调用service查询
-        PageBean<Brand> pageBean = brandService.selectByPage(currentPage, pageSize);
+        PageBean<User> pageBean = brandService.selectByPage(currentPage, pageSize);
 
         //2. 转为JSON
         String jsonString = JSON.toJSONString(pageBean);
@@ -176,11 +177,11 @@ public class BrandServlet extends BaseServlet{
         String params = br.readLine();//json字符串
 
         //转为 Brand
-        Brand brand = JSON.parseObject(params, Brand.class);
+        User user = JSON.parseObject(params, User.class);
 
 
         //2. 调用service查询
-        PageBean<Brand> pageBean = brandService.selectByPageAndCondition(currentPage,pageSize,brand);
+        PageBean<User> pageBean = brandService.selectByPageAndCondition(currentPage,pageSize,user);
 
         //2. 转为JSON
         String jsonString = JSON.toJSONString(pageBean);

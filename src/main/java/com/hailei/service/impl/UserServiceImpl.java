@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
         UserMapper mapper = sqlSession.getMapper(UserMapper.class);
 
         //4. 判断用户名是否存在
-        User u = mapper.selectByUsername(user.getUsername());
+        User u = mapper.selectByUsername(user.getBank_name());
 
         if(u == null){
             // 用户名不存在，注册

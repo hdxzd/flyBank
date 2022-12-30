@@ -2,6 +2,7 @@ package com.hailei.web.servlet;
 
 import com.alibaba.fastjson.JSON;
 import com.hailei.pojo.Brand;
+import com.hailei.pojo.User;
 import com.hailei.service.BrandService;
 import com.hailei.service.impl.BrandServiceImpl;
 
@@ -20,7 +21,7 @@ public class AddServlet extends HttpServlet {
         BufferedReader br=request.getReader();
         String params=br.readLine();//json字符串
         //转为Brand对象
-        Brand brand= JSON.parseObject(params,Brand.class);
+        User user= JSON.parseObject(params,User.class);
 
     }
 

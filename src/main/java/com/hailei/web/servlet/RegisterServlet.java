@@ -16,11 +16,11 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
        //1. 获取用户名和密码数据
-        String username = request.getParameter("username");
+        String bank_name = request.getParameter("bank_name");
         String password = request.getParameter("password");
 
         User user = new User();
-        user.setUsername(username);
+        user.setBank_name(bank_name);
         user.setPassword(password);
 
         // 获取用户输入的验证码
