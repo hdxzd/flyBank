@@ -19,7 +19,7 @@ public interface AdminMapper {
      * 添加数据
      * @param user
      */
-    @Insert("insert into Bank values(null,#{bank_name},#{password},#{id_card},#{phone},#{gender},#{birth_date},#{money})")
+    @Insert("insert into Bank values(null,#{bank_name},#{land_pwd},#{pay_pwd},#{id_card},#{phone},#{gender},#{birth_date},null)")
     void add(User user);
 
 
@@ -34,7 +34,7 @@ public interface AdminMapper {
      * 修改
      * @param user
      */
-    @Update("update Bank set bank_name = #{bank_name}, password = #{password},id_card = #{id_card},phone = #{phone},gender = #{gender} , birth_date = #{birth_date} where bank_id = #{bank_id}")
+    @Update("update Bank set bank_name = #{bank_name}, land_pwd = #{land_pwd},pay_pwd = #{pay_pwd},id_card = #{id_card},phone = #{phone},gender = #{gender} , birth_date = #{birth_date} where bank_id = #{bank_id}")
     void updateById(User user);
 
     /**

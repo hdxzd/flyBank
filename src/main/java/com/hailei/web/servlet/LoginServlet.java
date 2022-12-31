@@ -17,13 +17,13 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //1. 获取用户名和密码
         String username = request.getParameter("bank_name");
-        String password = request.getParameter("password");
+        String land_pwd = request.getParameter("land_pwd");
 
         //获取复选框数据
         String remember = request.getParameter("remember");
 
         //2. 调用service查询
-        User user = service.login(username, password);
+        User user = service.login(username, land_pwd);
 
         //3. 判断
         if(user != null){
@@ -35,7 +35,7 @@ public class LoginServlet extends HttpServlet {
 
                 //1. 创建Cookie对象
                 Cookie c_username = new Cookie("username",username);
-                Cookie c_password = new Cookie("password",password);
+                Cookie c_password = new Cookie("land_pwd",land_pwd);
                 // 设置Cookie的存活时间
                 c_username.setMaxAge( 60 * 60 * 24 * 7);
                 c_password.setMaxAge( 60 * 60 * 24 * 7);

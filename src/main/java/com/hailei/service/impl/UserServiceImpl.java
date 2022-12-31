@@ -13,17 +13,17 @@ public class UserServiceImpl implements UserService {
     /**
      * 登录方法
      * @param username
-     * @param password
+     * @param land_pwd
      * @return
      */
 
-    public User login(String username, String password){
+    public User login(String username, String land_pwd){
         //2. 获取SqlSession
         SqlSession sqlSession = factory.openSession();
         //3. 获取UserMapper
         UserMapper mapper = sqlSession.getMapper(UserMapper.class);
         //4. 调用方法
-        User user = mapper.select(username, password);
+        User user = mapper.select(username, land_pwd);
 
         //释放资源
         sqlSession.close();
