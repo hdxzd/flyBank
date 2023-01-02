@@ -75,4 +75,19 @@ public interface AdminMapper {
      * @return
      */
     int selectTotalCountByCondition(User user);
+
+    /**
+     * 根据账号查询账户信息
+     * @param bank_id 账号
+     * @return 账户信息
+     */
+    User selectByid(String bank_id);
+
+    /**
+     * 更新账户信息
+     * @param user 被更新的账户对象
+     * @return 1表示成功，其他表示失败
+     */
+    int updateByid(User user);
+
 }

@@ -2,6 +2,8 @@ package com.hailei.service;
 
 import com.hailei.pojo.PageBean;
 import com.hailei.pojo.User;
+import exceptions.MoneyNotEnoughException;
+import exceptions.TransferException;
 
 import java.util.List;
 
@@ -56,4 +58,28 @@ public interface BrandService {
      */
     PageBean<User> selectByPageAndCondition(int currentPage, int pageSize, User user);
 
+
+
+
+    /**
+     * 转账业务
+     * @param fromact 转出账户
+     * @param toact 转入账户
+     * @param money 转账金额
+     */
+    void transfer(String fromact,String toact,double money) throws MoneyNotEnoughException, TransferException;
+
+    /**
+     * 转账业务
+     * @param toact 转入账户
+     * @param money 转账金额
+     */
+    void inmoney(String toact,double money) throws MoneyNotEnoughException, TransferException;
+
+    /**
+     * 转账业务
+     * @param fromact 转出账户
+     * @param money 转账金额
+     */
+    void outmoney(String fromact,double money) throws MoneyNotEnoughException, TransferException;
 }

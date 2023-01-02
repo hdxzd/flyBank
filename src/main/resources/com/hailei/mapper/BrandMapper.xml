@@ -55,4 +55,11 @@
 
     </select>
 
+    <select id="selectByid" resultType="com.hailei.pojo.User">
+        select * from Bank where bank_id=#{bank_id}
+    </select>
+    <update id="updateByid">
+        update Bank set money = #{money} where bank_id=#{bank_id}
+    </update>
+
 </mapper>

@@ -5,9 +5,12 @@ import com.hailei.pojo.PageBean;
 import com.hailei.pojo.User;
 import com.hailei.service.BrandService;
 import com.hailei.util.SqlSessionFactoryUtils;
+import exceptions.MoneyNotEnoughException;
+import exceptions.TransferException;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public class BrandServiceImpl implements BrandService {
@@ -168,5 +171,102 @@ public class BrandServiceImpl implements BrandService {
         return pageBean;
     }
 
+    @Override
+    public void transfer(String fromact, String toact, double money) throws MoneyNotEnoughException, TransferException {        //处理事务
+        SqlSession sqlSession = factory.openSession();
 
+        //1.判断转出账户余额是否充足，不充足提示
+        User fromAccount =selectByid(fromact);
+        if (fromAccount.getMoney() < money) {
+            //提示用户
+            throw new MoneyNotEnoughException("不好意思，账户余额不足");
+        }
+
+        //2.转出账户余额充足，更新转出账户余额
+        User toactAccount = selectByid(toact);
+        fromAccount.setMoney(fromAccount.getMoney() - money);
+
+        /*String s = null;//这里模拟异常，测试事务处理是否成功
+        s.toString();*/
+
+        toactAccount.setMoney(toactAccount.getMoney() + money);
+
+        int count = updateByid(fromAccount);
+        count += updateByid(toactAccount);
+        if (count != 2) {
+            sqlSession.rollback();//事务回滚
+            throw new TransferException("转账异常，未知原因");
+        }
+
+        sqlSession.commit();//事务提交
+        sqlSession.close();
+    }
+
+    @Override
+    public void inmoney(String toact, double money) throws MoneyNotEnoughException, TransferException {
+        SqlSession sqlSession = factory.openSession();
+
+        //2.转出账户余额充足，更新转出账户余额
+        User toactAccount = selectByid(toact);
+        /*String s = null;//这里模拟异常，测试事务处理是否成功
+        s.toString();*/
+
+        toactAccount.setMoney(toactAccount.getMoney() + money);
+
+        int count = 1;
+        count += updateByid(toactAccount);
+        if (count != 2) {
+            sqlSession.rollback();//事务回滚
+            throw new TransferException("转账异常，未知原因");
+        }
+
+        sqlSession.commit();//事务提交
+        sqlSession.close();
+    }
+
+    @Override
+    public void outmoney(String fromact, double money) throws MoneyNotEnoughException, TransferException {
+        SqlSession sqlSession = factory.openSession();
+
+        //1.判断转出账户余额是否充足，不充足提示
+        User fromAccount =selectByid(fromact);
+        if (fromAccount.getMoney() < money) {
+            //提示用户
+            throw new MoneyNotEnoughException("不好意思，账户余额不足");
+        }
+
+        //2.转出账户余额充足，更新转出账户余额
+
+        fromAccount.setMoney(fromAccount.getMoney() - money);
+
+        /*String s = null;//这里模拟异常，测试事务处理是否成功
+        s.toString();*/
+
+
+
+        int count = updateByid(fromAccount);
+        count +=1;
+        if (count != 2) {
+            sqlSession.rollback();//事务回滚
+            throw new TransferException("转账异常，未知原因");
+        }
+
+        sqlSession.commit();//事务提交
+        sqlSession.close();
+    }
+
+
+    public User selectByid(String bank_id) {
+        SqlSession sqlSession = factory.openSession();
+        User user = sqlSession.selectOne("selectByid", bank_id);
+        return user;
+    }
+
+
+    public int updateByid(User user) {
+        HttpServletRequest SqlSessionUtil;
+        SqlSession SqlSession  = factory.openSession();
+        int count = SqlSession.update("updateByid",user);
+        return count;
+    }
 }
