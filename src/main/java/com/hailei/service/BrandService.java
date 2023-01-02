@@ -1,7 +1,7 @@
 package com.hailei.service;
 
-import com.hailei.pojo.Brand;
 import com.hailei.pojo.PageBean;
+import com.hailei.pojo.User;
 
 import java.util.List;
 
@@ -9,27 +9,28 @@ public interface BrandService {
 
     /**
      * 查询所有
+     *
      * @return
      */
-    List<Brand> selectAll();
+    List<User> selectAll();
 
     /**
      * 添加数据
-     * @param brand
+     * @param user
      */
-    void add(Brand brand);
+    void add(User user);
 
     /**
      * 删除
-     * @param id
+     * @param bank_id
      */
-    void deleteById(int id);
+    void deleteById(int bank_id);
 
     /**
      * 修改
-     * @param brand
+     * @param user
      */
-    void updateById(Brand brand);
+    void updateById(User user);
 
     /**
      * 批量删除
@@ -43,15 +44,16 @@ public interface BrandService {
      * @param pageSize   每页展示条数
      * @return
      */
-    PageBean<Brand>  selectByPage(int currentPage,int pageSize);
+    PageBean<User>  selectByPage(int currentPage,int pageSize);
 
     /**
      * 分页条件查询
+     *
      * @param currentPage
      * @param pageSize
-     * @param brand
+     * @param user
      * @return
      */
-    PageBean<Brand>  selectByPageAndCondition(int currentPage,int pageSize,Brand brand);
+    PageBean<User> selectByPageAndCondition(int currentPage, int pageSize, User user);
 
 }

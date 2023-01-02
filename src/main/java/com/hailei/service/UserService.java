@@ -6,11 +6,11 @@ public interface UserService {
     /**
      * 登录方法
      * @param username
-     * @param password
+     * @param land_pwd
      * @return
      */
 
-    User login(String username, String password);
+    User login(String username, String land_pwd);
 
     /**
      * 注册方法

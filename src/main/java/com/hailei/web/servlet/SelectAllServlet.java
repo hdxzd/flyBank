@@ -2,6 +2,7 @@ package com.hailei.web.servlet;
 
 import com.alibaba.fastjson.JSON;
 import com.hailei.pojo.Brand;
+import com.hailei.pojo.User;
 import com.hailei.service.BrandService;
 import com.hailei.service.impl.BrandServiceImpl;
 
@@ -18,10 +19,10 @@ public class SelectAllServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     //1.调用service查询
-        List<Brand> brands=brandService.selectAll();
+        List<User> users=brandService.selectAll();
 
         //2.转为JSON
-        String jsonString= JSON.toJSONString(brands);
+        String jsonString= JSON.toJSONString(users);
 
         //3.写数据
         response.setContentType("text/json;charset=utf-8");
