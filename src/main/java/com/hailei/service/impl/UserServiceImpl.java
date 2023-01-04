@@ -110,4 +110,36 @@ public class UserServiceImpl implements UserService {
     }
 
 
+    @Override
+    public void outmoney(String fromact, double money) throws MoneyNotEnoughException, TransferException {
+        SqlSession sqlSession = factory.openSession();
+
+        //1.判断转出账户余额是否充足，不充足提示
+        User fromAccount =selectByid(fromact);
+        if (fromAccount.getMoney() < money) {
+            //提示用户
+            throw new MoneyNotEnoughException("不好意思，账户余额不足");
+        }
+
+        //2.转出账户余额充足，更新转出账户余额
+
+        fromAccount.setMoney(fromAccount.getMoney() - money);
+
+        /*String s = null;//这里模拟异常，测试事务处理是否成功
+        s.toString();*/
+
+
+
+        int count = updateByid(fromAccount);
+        count +=1;
+        if (count != 2) {
+            sqlSession.rollback();//事务回滚
+            throw new TransferException("转账异常，未知原因");
+        }
+
+        sqlSession.commit();//事务提交
+        sqlSession.close();
+    }
+
+
 }

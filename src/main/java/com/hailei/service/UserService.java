@@ -28,4 +28,11 @@ public interface UserService {
      * @param money 转账金额
      */
     void transfer(String fromact,String toact,double money) throws MoneyNotEnoughException, TransferException;
+
+    /**
+     * 转账业务
+     * @param fromact 转出账户
+     * @param money 转账金额
+     */
+    void outmoney(String fromact,double money) throws MoneyNotEnoughException, TransferException;
 }
